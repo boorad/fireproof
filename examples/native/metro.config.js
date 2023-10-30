@@ -1,7 +1,8 @@
 const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
 const path = require('path');
 
-const extraNodeModules = path.resolve(path.join(__dirname, '../../node_modules'));
+const local = path.resolve(path.join(__dirname, './node_modules'));
+const pnpm = path.resolve(path.join(__dirname, '../../node_modules/.pnpm'));
 const fireproofCore = path.resolve(path.join(__dirname, '../../packages/fireproof'));
 const useFireproof = path.resolve(path.join(__dirname, '../../packages/react'));
 
@@ -14,8 +15,11 @@ const useFireproof = path.resolve(path.join(__dirname, '../../packages/react'));
 const config = {
   projectRoot: __dirname,
   resolver: {
-    modules: extraNodeModules,
-    sourceExts: ['jsx', 'js', 'ts', 'tsx', 'cjs', 'json', 'd.ts', 'esm.js', 'iife.js'],
+    nodeModulesPaths: [
+      local,
+      pnpm,
+    ],
+    sourceExts: ['jsx', 'js', 'ts', 'tsx', 'cjs', 'json', 'd.ts', 'esm.js'],
     unstable_enableSymlinks: true,
     unstable_enablePackageExports: true,
   },
@@ -28,7 +32,7 @@ const config = {
     }),
   },
   watchFolders: [
-    extraNodeModules,
+    pnpm,
     fireproofCore,
     useFireproof,
   ],

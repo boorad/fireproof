@@ -1,7 +1,7 @@
-module.exports = {
-  dependencies: {
-    'use-fireproof': {
-      root: '../../packages/fireproof',
-    },
-  },
-};
+// module.exports = {
+//   dependencies: {
+//     'use-fireproof': {
+//       root: '../../packages/fireproof',
+//     },
+//   },
+// };
