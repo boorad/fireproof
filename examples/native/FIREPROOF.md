@@ -11,10 +11,6 @@ You would think this uses `pnpm` the whole way.  It doesn't.  So we need to un-`
     rm -rf android/.gradle/ android/app/build android/local.properties ios/Pods/ ios/Podfile.lock ios/build/ node_modules/
     rm yarn.lock
 
-    # pnpm config --location project set hoist false
-    # pnpm config --location project set shamefully-hoist true
-    # pnpm config --location project set node-linker hoisted
-    # instead of ^ make the following:
     ❯ cat .npmrc
     public-hoist-pattern[]=*eslint*
     public-hoist-pattern[]=*prettier*
@@ -27,3 +23,11 @@ You would think this uses `pnpm` the whole way.  It doesn't.  So we need to un-`
     cd ios
     pod install
     cd ..
+
+
+## Add Fireproof
+
+    pnpm add use-fireproof @fireproof/core
+
+> Note: the use of `react-native-mmkv-storage ^0.9.0` means that we need to use React Native 0.71.0 and above.  Older versions of RN can use 0.8.x.
+

@@ -65,7 +65,7 @@ export function createBuildSettings(options) {
       plugins: [...commonSettings.plugins],
       banner: bannerLog(`
 console.log('esm/node build');`, `
-import { createRequire } from 'module'; 
+import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
         `)
     }
@@ -107,7 +107,7 @@ const require = createRequire(import.meta.url);
         format: 'cjs',
         platform: 'node',
         entryPoints: [entryPoint],
-        
+
         banner: bannerLog`
 console.log('cjs/node build');
 `
@@ -124,7 +124,7 @@ console.log('cjs/node build');
         platform: 'browser',
         target: 'es2020',
         entryPoints: [entryPoint],
-        
+
         banner: bannerLog`
 console.log('browser/es2015 build');
 `,
@@ -153,7 +153,7 @@ console.log('browser/es2015 build');
         ...browserIIFEConfig,
         outfile: `dist/browser/${filename}.esm.js`,
         format: 'esm',
-        
+
         banner: bannerLog`
 console.log('esm/es2015 build');
 `
@@ -166,12 +166,39 @@ console.log('esm/es2015 build');
         ...browserIIFEConfig,
         outfile: `dist/browser/${filename}.cjs`,
         format: 'cjs',
-        
+
         banner: bannerLog`
 console.log('cjs/es2015 build');
 `
       }
       builds.push(browserCJSConfig)
+
+      // react native
+      const reactNativeESMConfig = {
+        ...esmConfig,
+        outfile: `dist/native/${filename}.esm.js`,
+        plugins: [...esmConfig.plugins,
+          alias(
+            {
+              'fs': join(__dirname, '../node_modules/react-native-fs/FS.common.ts'),
+              'crypto': join(__dirname, '../node_modules/react-native-quick-crypto/lib/module/index.js'),
+              'stream': join(__dirname, '../node_modules/stream-browserify/index.js'),
+              'buffer': join(__dirname, '../node_modules/@craftzdog/react-native-buffer/index.js'),
+              'ipfs-utils/src/http/fetch.js': join(__dirname, '../../../node_modules/.pnpm/ipfs-utils@9.0.14/node_modules/ipfs-utils/src/http/fetch.node.js'),
+              './store-browser': join(__dirname, '../src/store-native.ts'),
+              // './crypto-web': join(__dirname, '../src/crypto-node.ts')
+            }
+          ),
+          // commonjs({ filter: /^peculiar|ipfs-utils/ })
+          // polyfillNode({
+          //   polyfills: { crypto: false, fs: true, process: 'empty' }
+          // })
+        ],
+        external: ['react-native'],
+        banner: bannerLog`console.log('react-native build');`
+      }
+      builds.push(reactNativeESMConfig)
+
     }
 
     return builds

@@ -10,5 +10,18 @@
       "runArguments": ["--simulator", "iPhone 14"],
       "internalConsoleOptions": "openOnSessionStart"
     },
+    {
+      "name": "esbuild (core)",
+      "type": "node",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "runtimeArgs": [],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "cwd": "${workspaceFolder}/packages/fireproof",
+      "program": "${workspaceFolder}/packages/fireproof/scripts/build.js",
+      "args": []
+
+    },
   ],
 }
