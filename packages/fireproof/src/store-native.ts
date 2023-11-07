@@ -13,11 +13,7 @@ export class DataStore extends DataStoreBase {
   async _withDB(dbWorkFun: (arg0: any) => any) {
     if (!this.db) {
       const dbName = `fp.${this.STORAGE_VERSION}.${this.loader.keyId}.${this.loader.name}`
-      this.db = await openDB(dbName, 1, {
-        upgrade(db): void {
-          db.createObjectStore('cars')
-        }
-      })
+      this.db = new MMKVLoader().withInstanceID(dbName).withEncryption().initialize();
     }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return await dbWorkFun(this.db)

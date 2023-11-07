@@ -32,6 +32,7 @@ const config = {
     }),
   },
   watchFolders: [
+    local,
     pnpm,
     fireproofCore,
     useFireproof,

@@ -187,17 +187,18 @@ console.log('cjs/es2015 build');
               'buffer': join(__dirname, '../node_modules/@craftzdog/react-native-buffer/index.js'),
               'ipfs-utils/src/http/fetch.js': join(__dirname, '../../../node_modules/.pnpm/ipfs-utils@9.0.14/node_modules/ipfs-utils/src/http/fetch.node.js'),
               './store-browser': join(__dirname, '../src/store-native.ts'),
+              // './crypto-web': join(__dirname, '../src/crypto-node.ts')
             }
           ),
         ],
-        banner: bannerLog`console.log('react-native build');`,
-      };
+        banner: bannerLog`console.log('react-native build');`
+      }
+      builds.push(reactNativeESMConfig)
 
-      builds.push(reactNativeESMConfig);
     }
 
-    return builds;
-  });
+    return builds
+  })
 
-  return configs.flat();
+  return configs.flat()
 }

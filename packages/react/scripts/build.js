@@ -1,10 +1,18 @@
 /* eslint-disable @typescript-eslint/require-await */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { build } from 'esbuild'
-import { createBuildSettings } from './settings.js'
+// import { createBuildSettings } from './settings.js'
 
 async function buildProject() {
-  const buildConfigs = createBuildSettings()
+  const buildConfigs = [
+    {
+      entryPoints: ['src/index.ts'],
+      bundle: true,
+      sourcemap: true,
+      outfile: `dist/index.mjs`,
+      format: 'esm',
+    },
+  ];
 
   for (const config of buildConfigs) {
     console.log('Building', config.outfile)

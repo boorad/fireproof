@@ -14,8 +14,6 @@
       "name": "esbuild (core)",
       "type": "node",
       "request": "launch",
-      "skipFiles": ["<node_internals>/**"],
-      "runtimeArgs": [],
       "console": "internalConsole",
       "internalConsoleOptions": "openOnSessionStart",
       "cwd": "${workspaceFolder}/packages/fireproof",

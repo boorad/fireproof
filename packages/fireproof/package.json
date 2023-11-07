@@ -39,7 +39,8 @@
     "postpublish": "rm README.md",
     "clean": "rm -rf dist/*",
     "build:version": "node -p \"'export const PACKAGE_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
-    "build:esbuild": "node ./scripts/build.js",
+    "esbuild": "node ./scripts/build.js",
+    "esbuild:watch": "nodemon -w src -w scripts -e ts,js --exec \"pnpm run clean && pnpm run esbuild\"",
     "build:_types": "tsc --declaration --outDir dist/types && node ./scripts/types.js",
     "build:rollup": "rollup -c scripts/rollup.js",
     "build:tsc": "npm run clean && tsc && mkdir dist/tsc && mv dist/*.js dist/tsc/ && node ./scripts/types.js",
@@ -85,6 +86,10 @@
   "bugs": {
     "url": "https://github.com/fireproof-storage/fireproof/issues"
   },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
   "devDependencies": {
     "@hyrious/esbuild-plugin-commonjs": "^0.2.2",
     "@rollup/plugin-alias": "^5.0.0",
@@ -98,7 +103,7 @@
     "browser-assert": "^1.2.1",
     "c8": "^8.0.1",
     "crypto-browserify": "^3.12.0",
-    "esbuild": "^0.18.14",
+    "esbuild": "^0.19.5",
     "esbuild-plugin-alias": "^0.2.1",
     "esbuild-plugin-polyfill-node": "^0.3.0",
     "esbuild-plugin-tsc": "^0.4.0",
