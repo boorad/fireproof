@@ -175,9 +175,11 @@ console.log('cjs/es2015 build');
       builds.push(browserCJSConfig)
 
       // react native
-      const reactNativeESMConfig = {
+      const reactNativeCJSConfig = {
         ...esmConfig,
-        outfile: `dist/native/${filename}.esm.js`,
+        // outfile: `dist/native/${filename}.esm.js`,
+        outfile: `dist/native/${filename}.cjs`,
+        format: 'cjs',
         plugins: [...esmConfig.plugins,
           alias(
             {
@@ -193,7 +195,7 @@ console.log('cjs/es2015 build');
         banner: bannerLog`console.log('react-native build');`,
       };
 
-      builds.push(reactNativeESMConfig);
+      builds.push(reactNativeCJSConfig);
     }
 
     return builds;
