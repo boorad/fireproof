@@ -8,7 +8,7 @@
       "cwd": "${workspaceFolder}/examples/native",
       "platform": "ios",
       "runArguments": ["--simulator", "iPhone 14"],
-      "internalConsoleOptions": "openOnSessionStart"
+      "internalConsoleOptions": "openOnSessionStart",
     },
     {
       "name": "esbuild (core)",
@@ -18,8 +18,17 @@
       "internalConsoleOptions": "openOnSessionStart",
       "cwd": "${workspaceFolder}/packages/fireproof",
       "program": "${workspaceFolder}/packages/fireproof/scripts/build.js",
-      "args": []
-
+      "args": [],
+    },
+    {
+      "name": "test (store-native)",
+      "type": "node",
+      "request": "launch",
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "cwd": "${workspaceFolder}/packages/fireproof",
+      "program": "${workspaceFolder}/packages/fireproof/test/store-native.test.js",
+      "args": [],
     },
   ],
 }
