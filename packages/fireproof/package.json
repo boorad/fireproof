@@ -20,6 +20,7 @@
     },
     "./native": {
       "import": "./dist/native/fireproof.cjs",
+      "require": "./dist/native/fireproof.cjs",
       "types": "./dist/types/fireproof.d.ts",
       "script": "./dist/native/fireproof.cjs",
       "default": "./dist/native/fireproof.cjs"

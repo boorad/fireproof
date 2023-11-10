@@ -1,3 +1,12 @@
+// TODO: This test won't work unless we also bundle React Native into the files generated for tests.
+//  Of course, for lib releases, we want to make RN external.
+//
+//  We could:
+//  1. patch `esbuild` to handle Facebook Flow annotations
+//  2. try the `esbuild-plugin-flow` to strip them out
+//
+//  The second (Plugin) option probably has more work a la `react-native-esbuild` or similar projects
+
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -12,7 +21,7 @@ import { CID } from 'multiformats'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { assert, matches, equals } from './helpers.js'
 
-import { DataStore, testConfig, MetaStore } from '../dist/test/store-native.esm.js'
+import { DataStore, MetaStore } from '../dist/test/store-native.esm.js'
 
 // const { readFile } = promises
 
@@ -88,7 +97,7 @@ describe('MetaStore', function () {
       key: null
     }
     await store.save(h)
-    const path = join(testConfig.dataDir, store.name, 'meta', 'main.json')
+    const path = join(".", store.name, 'meta', 'main.json')
 
     console.log({path, cid});
     // const file = await readFile(path)
@@ -108,7 +117,7 @@ describe('MetaStore with a saved header', function () {
     await store.save({ car: cid, key: null })
   })
   it('should have a header', async function () {
-    const path = join(testConfig.dataDir, store.name, 'meta', 'main.json')
+    const path = join(".", store.name, 'meta', 'main.json')
     const data = await readFile(path)
     matches(data, /car/)
     const header = JSON.parse(data.toString())
