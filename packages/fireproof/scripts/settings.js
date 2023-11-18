@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import esbuildPluginTsc from 'esbuild-plugin-tsc'
 import alias from 'esbuild-plugin-alias'
+import esbuildPluginReactNative, { rnResolveExtensions, rnAssetLoader } from './esbuild-plugin-react-native.js';
 import fs from 'fs'
 import path, { dirname, join } from 'path'
 // import { polyfillNode } from 'esbuild-plugin-polyfill-node'
@@ -76,6 +77,7 @@ const require = createRequire(import.meta.url);
       platform: 'node',
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       plugins: [...esmConfig.plugins,
+        esbuildPluginReactNative(),
         alias(
           {
             'ipfs-utils/src/http/fetch.js': join(__dirname, '../../../node_modules/.pnpm/ipfs-utils@9.0.14/node_modules/ipfs-utils/src/http/fetch.node.js'),
@@ -83,15 +85,19 @@ const require = createRequire(import.meta.url);
             './crypto-web': join(__dirname, '../src/crypto-node.ts')
           }
         ),
-        commonjs({ filter: /^peculiar|ipfs-utils/ })
+        commonjs({ filter: /^peculiar|ipfs-utils/ }),
         // polyfillNode({
         //   polyfills: { crypto: false, fs: true, process: 'empty' }
         // })
-      ]
-
-    }
-
-    builds.push(testEsmConfig)
+      ],
+      loader: {
+        '.js': 'jsx',
+        ...rnAssetLoader,
+      },
+      resolveExtensions: rnResolveExtensions,
+      logLevel: 'verbose',
+    };
+    builds.push(testEsmConfig);
 
     if (/fireproof\./.test(entryPoint)) {
       const esmPublishConfig = {
@@ -180,6 +186,7 @@ console.log('cjs/es2015 build');
         // outfile: `dist/native/${filename}.esm.js`,
         outfile: `dist/native/${filename}.cjs`,
         format: 'cjs',
+        external: [...esmConfig.external, 'react-native'],
         plugins: [...esmConfig.plugins,
           alias(
             {
