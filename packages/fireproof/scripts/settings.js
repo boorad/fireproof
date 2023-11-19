@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import esbuildPluginTsc from 'esbuild-plugin-tsc'
 import alias from 'esbuild-plugin-alias'
-import esbuildPluginReactNative, { rnResolveExtensions, rnAssetLoader } from './esbuild-plugin-react-native.js';
+import reactNative, { rnResolveExtensions, rnAssetLoader } from './esbuild-plugin-react-native.js';
 import fs from 'fs'
 import path, { dirname, join } from 'path'
 // import { polyfillNode } from 'esbuild-plugin-polyfill-node'
@@ -32,7 +32,7 @@ export function createBuildSettings(options) {
         force: true
       })
     ],
-    external: ['react', 'react-dom', 'react-native'],
+    external: ['react', 'react-dom'],
     ...options
   }
 
@@ -77,7 +77,7 @@ const require = createRequire(import.meta.url);
       platform: 'node',
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       plugins: [...esmConfig.plugins,
-        esbuildPluginReactNative(),
+        reactNative(),
         alias(
           {
             'ipfs-utils/src/http/fetch.js': join(__dirname, '../../../node_modules/.pnpm/ipfs-utils@9.0.14/node_modules/ipfs-utils/src/http/fetch.node.js'),
@@ -94,7 +94,7 @@ const require = createRequire(import.meta.url);
         '.js': 'jsx',
         ...rnAssetLoader,
       },
-      resolveExtensions: rnResolveExtensions,
+      resolveExtensions: rnResolveExtensions('ios'), // run our tests with platform 'ios'
       logLevel: 'verbose',
     };
     builds.push(testEsmConfig);

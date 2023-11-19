@@ -1,6 +1,5 @@
 // esbuild-plugin-react-native
-import { dirname, join } from 'path';
-
+import path from 'path';
 import flowRemoveTypes from 'flow-remove-types';
 import { readFile } from 'fs/promises';
 
@@ -12,21 +11,6 @@ export default (options = {}) => {
   if (!filter) {
     filter = RN_FILTER;
   }
-
-  const rnImports = [
-    '../Utilities/Platform',
-    '../../Utilities/Platform',
-    './RCTAlertManager',
-    './NativeAlertManager',
-    '../../Image/Image',
-    '../../Stylesheet/PlatformColorValueTypes',
-    './NativePlatformConstantsIOS',
-    '../TurboModule/RCTExport',
-    '../TurboModule/TurboModuleRegistry',
-    '../BatchedBridge/NativeModules',
-    './BatchedBridge',
-    './MessageQueue',
-  ];
 
   return {
     name: 'react-native',
@@ -50,10 +34,6 @@ export default (options = {}) => {
         }
         output = output.toString().replace(/static\s+\+/g, 'static ');
 
-        if (args.path.endsWith('/UnimplementedView.js')) {
-          console.log(output);
-        }
-
         return {
           contents: output,
           loader: 'jsx',
@@ -61,14 +41,11 @@ export default (options = {}) => {
       });
 
       build.onResolve({ filter: /./ }, async (args) => {
-        // if (rnImports.indexOf(args.path) >= 0) {
-
         if (
           args.importer.match(RN_FILTER) &&
           (args.path.includes('../') || args.path.includes('./'))
         ) {
-          const target = join(dirname(args.importer), args.path);
-          // console.log('rnImport', target);
+          const target = path.join(path.dirname(args.importer), args.path);
           return {
             path: target,
           };
@@ -79,7 +56,7 @@ export default (options = {}) => {
   };
 };
 
-// these are for RN bundling so we can test
+// these are for RN bundling
 const BITMAP_IMAGE_EXTENSIONS = [
   '.bmp',
   '.gif',
@@ -132,12 +109,11 @@ const SOURCE_EXTENSIONS = [
 ];
 const extensions = SOURCE_EXTENSIONS.concat(ASSET_EXTENSIONS);
 
-const platforms = ['ios', 'native', 'react-native'];
-
-export const rnResolveExtensions = platforms
+export const rnResolveExtensions = platform => ([platform, 'native', 'react-native']
   .map((p) => extensions.map((e) => `.${p}${e}`))
   .concat(extensions)
-  .flat();
+  .flat()
+);
 
 export const rnAssetLoader = Object.fromEntries(
   ASSET_EXTENSIONS.map((ext) => [ext, 'file']),
