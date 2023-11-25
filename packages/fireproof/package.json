@@ -92,6 +92,7 @@
     "react-native": "*"
   },
   "devDependencies": {
+    "@babel/plugin-syntax-flow": "^7.23.3",
     "@hyrious/esbuild-plugin-commonjs": "^0.2.2",
     "@rollup/plugin-alias": "^5.0.0",
     "@rollup/plugin-commonjs": "^25.0.4",
@@ -116,12 +117,15 @@
     "eslint-plugin-promise": "^6.1.1",
     "flow-remove-types": "^2.221.0",
     "memfs": "^4.2.1",
+    "metro-react-native-babel-preset": "0.76.8",
     "mocha": "^10.2.0",
     "nodemon": "^3.0.1",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
     "process": "^0.11.10",
     "puppeteer": "^21.0.3",
+    "react-native-esbuild": "link:../../../react-native-esbuild",
+    "react-native-reanimated": "^3.5.4",
     "rollup-plugin-polyfill-node": "^0.12.0",
     "rollup-plugin-visualizer": "^5.9.2",
     "stream-browserify": "^3.0.0",

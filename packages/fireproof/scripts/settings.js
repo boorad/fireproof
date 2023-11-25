@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import esbuildPluginTsc from 'esbuild-plugin-tsc'
 import alias from 'esbuild-plugin-alias'
-import reactNative, { rnResolveExtensions, rnAssetLoader } from './esbuild-plugin-react-native.js';
+import { getEsbuildConfig } from 'react-native-esbuild';
 import fs from 'fs'
 import path, { dirname, join } from 'path'
 // import { polyfillNode } from 'esbuild-plugin-polyfill-node'
@@ -72,12 +72,26 @@ const require = createRequire(import.meta.url);
         `)
     }
 
+    // Test Config
+    const config = {
+      platforms: {
+        ios: {},
+      },
+      // TODO: make this work with more than just pnpm
+      reactNativePath:
+        '/Users/brad/dev/fireproof/node_modules/.pnpm/react-native@0.72.6_@babel+core@7.22.11_@babel+preset-env@7.23.2_react@18.2.0/node_modules/react-native',
+    };
+    const args = {
+      entryFile: entryPoint,
+      platform: 'ios',
+      dev: true,
+    };
+    const rnEsbuildConfig = getEsbuildConfig(config, args);
+    // rnEsbuildConfig.inject.push(join(__dirname, 'import-meta-url.js'));
     const testEsmConfig = {
       ...esmConfig,
-      platform: 'node',
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       plugins: [...esmConfig.plugins,
-        reactNative(),
         alias(
           {
             'ipfs-utils/src/http/fetch.js': join(__dirname, '../../../node_modules/.pnpm/ipfs-utils@9.0.14/node_modules/ipfs-utils/src/http/fetch.node.js'),
@@ -89,12 +103,18 @@ const require = createRequire(import.meta.url);
         // polyfillNode({
         //   polyfills: { crypto: false, fs: true, process: 'empty' }
         // })
+        ...rnEsbuildConfig.plugins,
       ],
-      loader: {
-        '.js': 'jsx',
-        ...rnAssetLoader,
-      },
-      resolveExtensions: rnResolveExtensions('ios'), // run our tests with platform 'ios'
+      mainFields: rnEsbuildConfig.mainFields,
+      resolveExtensions: rnEsbuildConfig.resolveExtensions,
+      define: rnEsbuildConfig.define,
+      // define: {
+      //     ...rnEsbuildConfig.define,
+      //     'import.meta.url': 'import_meta_url',
+      // },
+      loader: rnEsbuildConfig.loader,
+      inject: rnEsbuildConfig.inject,
+      // target: 'es2020',
       logLevel: 'verbose',
     };
     builds.push(testEsmConfig);
