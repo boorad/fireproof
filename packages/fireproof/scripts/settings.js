@@ -80,6 +80,7 @@ const require = createRequire(import.meta.url);
       // TODO: make this work with more than just pnpm
       reactNativePath:
         '/Users/brad/dev/fireproof/node_modules/.pnpm/react-native@0.72.6_@babel+core@7.22.11_@babel+preset-env@7.23.2_react@18.2.0/node_modules/react-native',
+      root: '/Users/brad/dev/fireproof/packages/fireproof',
     };
     const args = {
       entryFile: entryPoint,
