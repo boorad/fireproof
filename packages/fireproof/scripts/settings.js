@@ -8,9 +8,6 @@ import path, { dirname, join } from 'path'
 // import { polyfillNode } from 'esbuild-plugin-polyfill-node'
 import { commonjs } from '@hyrious/esbuild-plugin-commonjs'
 
-import { fileURLToPath } from 'url'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
 
 // Obtain all .ts files in the src directory
 const entryPoints = fs
@@ -78,6 +75,7 @@ const require = createRequire(import.meta.url);
         ios: {},
       },
       // TODO: make this work with more than just pnpm
+      //       i.e. get paths instead of hardcode
       reactNativePath:
         '/Users/brad/dev/fireproof/node_modules/.pnpm/react-native@0.72.6_@babel+core@7.22.11_@babel+preset-env@7.23.2_react@18.2.0/node_modules/react-native',
       root: '/Users/brad/dev/fireproof/packages/fireproof',
