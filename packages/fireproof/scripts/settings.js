@@ -8,6 +8,9 @@ import path, { dirname, join } from 'path'
 // import { polyfillNode } from 'esbuild-plugin-polyfill-node'
 import { commonjs } from '@hyrious/esbuild-plugin-commonjs'
 
+import { fileURLToPath } from 'url'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 // Obtain all .ts files in the src directory
 const entryPoints = fs
@@ -86,7 +89,6 @@ const require = createRequire(import.meta.url);
       dev: true,
     };
     const rnEsbuildConfig = getEsbuildConfig(config, args);
-    // rnEsbuildConfig.inject.push(join(__dirname, 'import-meta-url.js'));
     const testEsmConfig = {
       ...esmConfig,
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -107,13 +109,8 @@ const require = createRequire(import.meta.url);
       mainFields: rnEsbuildConfig.mainFields,
       resolveExtensions: rnEsbuildConfig.resolveExtensions,
       define: rnEsbuildConfig.define,
-      // define: {
-      //     ...rnEsbuildConfig.define,
-      //     'import.meta.url': 'import_meta_url',
-      // },
       loader: rnEsbuildConfig.loader,
       inject: rnEsbuildConfig.inject,
-      // target: 'es2020',
       logLevel: 'verbose',
     };
     builds.push(testEsmConfig);
