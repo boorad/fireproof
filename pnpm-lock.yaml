@@ -27,7 +27,7 @@ importers:
         version: 18.2.0
       react-native:
         specifier: 0.72.6
-        version: 0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)(react@18.2.0)
+        version: 0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)
       use-fireproof:
         specifier: link:../../packages/react
         version: link:../../packages/react
@@ -55,7 +55,7 @@ importers:
         version: 0.72.11(@babel/core@7.22.11)
       '@rnx-kit/metro-config':
         specifier: ^1.3.13
-        version: 1.3.13(@react-native/metro-config@0.72.11)(react-native@0.72.6)(react@18.2.0)
+        version: 1.3.13(@react-native/metro-config@0.72.11)(react-native@0.72.6)
       '@tsconfig/react-native':
         specifier: ^3.0.0
         version: 3.0.2
@@ -88,7 +88,7 @@ importers:
         version: 2.8.8
       react-test-renderer:
         specifier: 18.2.0
-        version: 18.2.0(react@18.2.0)
+        version: 18.2.0
       typescript:
         specifier: 4.8.4
         version: 4.8.4
@@ -103,10 +103,10 @@ importers:
         version: 17.0.2
       react-dom:
         specifier: ^17.0.1
-        version: 17.0.2(react@17.0.2)
+        version: 17.0.2
       use-fireproof:
         specifier: ^0.7.3
-        version: 0.7.3(react-dom@17.0.2)(react@17.0.2)
+        version: 0.7.3(react-dom@17.0.2)
     devDependencies:
       servor:
         specifier: ^4.0.2
@@ -119,7 +119,7 @@ importers:
         version: 0.8.0
       '@w3ui/react-keyring':
         specifier: ^3.0.1
-        version: 3.0.1(@types/react@18.0.28)(react@18.2.0)
+        version: 3.0.1(@types/react@18.0.28)
       '@web3-storage/capabilities':
         specifier: ^3.2.0
         version: 3.2.0
@@ -155,13 +155,13 @@ importers:
         version: 18.2.0
       react-dom:
         specifier: ^18.2.0
-        version: 18.2.0(react@18.2.0)
+        version: 18.2.0
       react-router:
         specifier: ^6.8.1
-        version: 6.8.2(react@18.2.0)
+        version: 6.8.2
       react-router-dom:
         specifier: ^6.8.1
-        version: 6.8.2(react-dom@18.2.0)(react@18.2.0)
+        version: 6.8.2(react-dom@18.2.0)
       todomvc-app-css:
         specifier: ^2.4.2
         version: 2.4.2
@@ -345,7 +345,7 @@ importers:
         version: 0.3.3
       '@craftzdog/react-native-buffer':
         specifier: ^6.0.5
-        version: 6.0.5(react-native@0.72.6)(react@18.2.0)
+        version: 6.0.5(react-native@0.72.6)
       '@ipld/car':
         specifier: ^5.2.0
         version: 5.2.0
@@ -406,12 +406,6 @@ importers:
       prolly-trees:
         specifier: ^1.0.4
         version: 1.0.4
-      react:
-        specifier: '*'
-        version: 18.2.0
-      react-native:
-        specifier: '*'
-        version: 0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)(react@18.2.0)
       react-native-fs:
         specifier: ^2.20.0
         version: 2.20.0(patch_hash=wmbvszhq7yn5zdt4q3ph5aeope)(react-native@0.72.6)
@@ -420,10 +414,10 @@ importers:
         version: 0.9.1(react-native@0.72.6)
       react-native-quick-base64:
         specifier: ^2.0.7
-        version: 2.0.7(react-native@0.72.6)(react@18.2.0)
+        version: 2.0.7(react-native@0.72.6)
       react-native-quick-crypto:
         specifier: ^0.6.1
-        version: 0.6.1(react-native@0.72.6)(react@18.2.0)
+        version: 0.6.1(react-native@0.72.6)
       readable-stream:
         specifier: ^4.4.2
         version: 4.4.2
@@ -533,12 +527,18 @@ importers:
       puppeteer:
         specifier: ^21.0.3
         version: 21.0.3
+      react:
+        specifier: 18.2.0
+        version: 18.2.0
+      react-native:
+        specifier: 0.72.6
+        version: 0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)
       react-native-esbuild:
         specifier: link:../../../react-native-esbuild
         version: link:../../../react-native-esbuild
       react-native-reanimated:
         specifier: ^3.5.4
-        version: 3.5.4(@babel/core@7.22.11)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.22.5)(@babel/plugin-transform-shorthand-properties@7.22.5)(@babel/plugin-transform-template-literals@7.22.5)(react-native@0.72.6)(react@18.2.0)
+        version: 3.5.4(@babel/core@7.22.11)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.22.5)(@babel/plugin-transform-shorthand-properties@7.22.5)(@babel/plugin-transform-template-literals@7.22.5)(react-native@0.72.6)
       rollup-plugin-polyfill-node:
         specifier: ^0.12.0
         version: 0.12.0(rollup@1.32.1)
@@ -572,7 +572,7 @@ importers:
         version: 29.5.0
       '@testing-library/react-hooks':
         specifier: ^3.4.1
-        version: 3.7.0(react-test-renderer@16.14.0)(react@16.14.0)
+        version: 3.7.0(react-test-renderer@16.14.0)
       '@types/jest':
         specifier: ^26.0.7
         version: 26.0.24
@@ -584,7 +584,7 @@ importers:
         version: 16.9.19
       '@types/testing-library__react-hooks':
         specifier: ^4.0.0
-        version: 4.0.0(react-test-renderer@16.14.0)(react@16.14.0)
+        version: 4.0.0(react-test-renderer@16.14.0)
       babel-core:
         specifier: ^6.26.3
         version: 6.26.3
@@ -611,10 +611,10 @@ importers:
         version: 16.14.0
       react-dom:
         specifier: ^16.12.0
-        version: 16.14.0(react@16.14.0)
+        version: 16.14.0
       react-test-renderer:
         specifier: ^16.13.1
-        version: 16.14.0(react@16.14.0)
+        version: 16.14.0
       rollup:
         specifier: ^1.29.0
         version: 1.32.1
@@ -2261,13 +2261,12 @@ packages:
       minimist: 1.2.8
     dev: true
 
-  /@craftzdog/react-native-buffer@6.0.5(react-native@0.72.6)(react@18.2.0):
+  /@craftzdog/react-native-buffer@6.0.5(react-native@0.72.6):
     resolution: {integrity: sha512-Av+YqfwA9e7jhgI9GFE/gTpwl/H+dRRLmZyJPOpKTy107j9Oj7oXlm3/YiMNz+C/CEGqcKAOqnXDLs4OL6AAFw==}
     dependencies:
       ieee754: 1.2.1
-      react-native-quick-base64: 2.0.7(react-native@0.72.6)(react@18.2.0)
+      react-native-quick-base64: 2.0.7(react-native@0.72.6)
     transitivePeerDependencies:
-      - react
       - react-native
     dev: false
 
@@ -3608,7 +3607,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@babel/core': 7.22.11
-      '@jest/types': 29.5.0
+      '@jest/types': 29.6.3
       '@jridgewell/trace-mapping': 0.3.20
       babel-plugin-istanbul: 6.1.1
       chalk: 4.1.2
@@ -4181,7 +4180,7 @@ packages:
     dependencies:
       invariant: 2.2.4
       nullthrows: 1.1.1
-      react-native: 0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)(react@18.2.0)
+      react-native: 0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)
 
   /@remix-run/router@1.3.3:
     resolution: {integrity: sha512-YRHie1yQEj0kqqCTCJEfHqYSSNlZQ696QJG+MMiW4mxSl9I0ojz/eRhJS4fs88Z5i6D1SmoF9d3K99/QOhI8/w==}
@@ -4194,11 +4193,10 @@ packages:
       chalk: 4.1.2
     dev: true
 
-  /@rnx-kit/metro-config@1.3.13(@react-native/metro-config@0.72.11)(react-native@0.72.6)(react@18.2.0):
+  /@rnx-kit/metro-config@1.3.13(@react-native/metro-config@0.72.11)(react-native@0.72.6):
     resolution: {integrity: sha512-/q+KPjFuYz5V1vGpWpkQycpQmn8l6gbj+ryAtwXXCe6dcFSZzqOYrlXDcv7jfRfrDlfA46SE8iy6H9N+2xnAnw==}
     peerDependencies:
       '@react-native/metro-config': '*'
-      react: '*'
       react-native: '*'
     peerDependenciesMeta:
       '@react-native/metro-config':
@@ -4209,8 +4207,7 @@ packages:
       '@rnx-kit/tools-node': 2.1.0
       '@rnx-kit/tools-react-native': 1.3.4
       '@rnx-kit/tools-workspaces': 0.1.5
-      react: 18.2.0
-      react-native: 0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)(react@18.2.0)
+      react-native: 0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)
     dev: true
 
   /@rnx-kit/tools-language@2.0.1:
@@ -4374,16 +4371,14 @@ packages:
       '@sinonjs/commons': 1.8.6
     dev: true
 
-  /@testing-library/react-hooks@3.7.0(react-test-renderer@16.14.0)(react@16.14.0):
+  /@testing-library/react-hooks@3.7.0(react-test-renderer@16.14.0):
     resolution: {integrity: sha512-TwfbY6BWtWIHitjT05sbllyLIProcysC0dF0q1bbDa7OHLC6A6rJOYJwZ13hzfz3O4RtOuInmprBozJRyyo7/g==}
     peerDependencies:
-      react: '>=16.9.0'
       react-test-renderer: '>=16.9.0'
     dependencies:
       '@babel/runtime': 7.21.5
       '@types/testing-library__react-hooks': 3.4.1
-      react: 16.14.0
-      react-test-renderer: 16.14.0(react@16.14.0)
+      react-test-renderer: 16.14.0
     dev: true
 
   /@tootallnate/once@1.1.2:
@@ -4575,13 +4570,12 @@ packages:
       '@types/react-test-renderer': 18.0.0
     dev: true
 
-  /@types/testing-library__react-hooks@4.0.0(react-test-renderer@16.14.0)(react@16.14.0):
+  /@types/testing-library__react-hooks@4.0.0(react-test-renderer@16.14.0):
     resolution: {integrity: sha512-UzZUXthQtVjDruR2YA+hqg9ux5AfmZ8Kaw+QDungax+T7wb/5NC4x7YOpIqRx7oY3KksGQ69bzNE/xwzb5NslQ==}
     deprecated: This is a stub types definition. @testing-library/react-hooks provides its own type definitions, so you do not need this installed.
     dependencies:
-      '@testing-library/react-hooks': 3.7.0(react-test-renderer@16.14.0)(react@16.14.0)
+      '@testing-library/react-hooks': 3.7.0(react-test-renderer@16.14.0)
     transitivePeerDependencies:
-      - react
       - react-test-renderer
     dev: true
 
@@ -5114,14 +5108,11 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@w3ui/react-keyring@3.0.1(@types/react@18.0.28)(react@18.2.0):
+  /@w3ui/react-keyring@3.0.1(@types/react@18.0.28):
     resolution: {integrity: sha512-sM5wayVuseN4ed1RUnYcn3uFN1wyeFwjXGaXiYKqDQeuuZVhKjjLd4c1k0uh+NHOuCDx/Rv+LzB2F2h+HH9UQg==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       '@w3ui/keyring-core': 2.2.1
-      ariakit-react-utils: 0.17.0-next.27(@types/react@18.0.28)(react@18.2.0)
-      react: 18.2.0
+      ariakit-react-utils: 0.17.0-next.27(@types/react@18.0.28)
     transitivePeerDependencies:
       - '@types/react'
       - bufferutil
@@ -5775,15 +5766,13 @@ packages:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
     dev: true
 
-  /ariakit-react-utils@0.17.0-next.27(@types/react@18.0.28)(react@18.2.0):
+  /ariakit-react-utils@0.17.0-next.27(@types/react@18.0.28):
     resolution: {integrity: sha512-YyL3sEowwaw6r8wRjENB9S4Hjz/ppyv5nJNeFkb6xaEX/QYUYmqL+lQch50LW04vj9oa8RGHlY2SmyQX3d7g3w==}
     peerDependencies:
       '@types/react': ^17.0.0 || ^18.0.0
-      react: ^17.0.0 || ^18.0.0
     dependencies:
       '@types/react': 18.0.28
       ariakit-utils: 0.17.0-next.27
-      react: 18.2.0
     dev: false
 
   /ariakit-utils@0.17.0-next.27:
@@ -10530,14 +10519,14 @@ packages:
     resolution: {integrity: sha512-IspOPnnBro8YfVYSw6yDRKh/TiCdRngjxeacCps1cQ9cgVN6+10JUcuJ1EabrgYLOATsIAigxA0rLR9x/YlrSA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
-      '@jest/types': 29.5.0
+      '@jest/types': 29.6.3
       '@types/graceful-fs': 4.1.6
       '@types/node': 18.14.6
       anymatch: 3.1.3
       fb-watchman: 2.0.2
       graceful-fs: 4.2.11
       jest-regex-util: 29.4.3
-      jest-util: 29.5.0
+      jest-util: 29.7.0
       jest-worker: 29.5.0
       micromatch: 4.0.5
       walker: 1.0.8
@@ -10660,7 +10649,7 @@ packages:
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
     dependencies:
       '@babel/code-frame': 7.22.13
-      '@jest/types': 29.5.0
+      '@jest/types': 29.6.3
       '@types/stack-utils': 2.0.1
       chalk: 4.1.2
       graceful-fs: 4.2.11
@@ -13252,36 +13241,27 @@ packages:
       - bufferutil
       - utf-8-validate
 
-  /react-dom@16.14.0(react@16.14.0):
+  /react-dom@16.14.0:
     resolution: {integrity: sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw==}
-    peerDependencies:
-      react: ^16.14.0
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       prop-types: 15.8.1
-      react: 16.14.0
       scheduler: 0.19.1
     dev: true
 
-  /react-dom@17.0.2(react@17.0.2):
+  /react-dom@17.0.2:
     resolution: {integrity: sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==}
-    peerDependencies:
-      react: 17.0.2
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
-      react: 17.0.2
       scheduler: 0.20.2
     dev: false
 
-  /react-dom@18.2.0(react@18.2.0):
+  /react-dom@18.2.0:
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
-    peerDependencies:
-      react: ^18.2.0
     dependencies:
       loose-envify: 1.4.0
-      react: 18.2.0
       scheduler: 0.23.0
     dev: false
 
@@ -13310,7 +13290,7 @@ packages:
         optional: true
     dependencies:
       base-64: 0.1.0
-      react-native: 0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)(react@18.2.0)
+      react-native: 0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)
       utf8: 3.0.0
     dev: false
     patched: true
@@ -13321,38 +13301,34 @@ packages:
     peerDependencies:
       react-native: '*'
     dependencies:
-      react-native: 0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)(react@18.2.0)
+      react-native: 0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)
     dev: false
 
-  /react-native-quick-base64@2.0.7(react-native@0.72.6)(react@18.2.0):
+  /react-native-quick-base64@2.0.7(react-native@0.72.6):
     resolution: {integrity: sha512-QmOon3zXAWFi3KvQVCJjCC7N66rwfl1R4nLPuJ+OVs8nWysvKlaU8mKxe2BV4Ud1nB3nTDgyi2VCJFpjtjJxKw==}
     peerDependencies:
-      react: '*'
       react-native: '*'
     dependencies:
       base64-js: 1.5.1
-      react: 18.2.0
-      react-native: 0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)(react@18.2.0)
+      react-native: 0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)
     dev: false
 
-  /react-native-quick-crypto@0.6.1(react-native@0.72.6)(react@18.2.0):
+  /react-native-quick-crypto@0.6.1(react-native@0.72.6):
     resolution: {integrity: sha512-s6uFo7tcI3syo8/y5j+t6Rf+KVSuRKDp6tH04A0vjaHptJC6Iu7DVgkNYO7aqtfrYn8ZUgQ/Kqaq+m4i9TxgIQ==}
     peerDependencies:
-      react: '*'
       react-native: '>=0.71.0'
     dependencies:
-      '@craftzdog/react-native-buffer': 6.0.5(react-native@0.72.6)(react@18.2.0)
+      '@craftzdog/react-native-buffer': 6.0.5(react-native@0.72.6)
       '@types/node': 17.0.45
       crypto-browserify: 3.12.0
       events: 3.3.0
-      react: 18.2.0
-      react-native: 0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)(react@18.2.0)
-      react-native-quick-base64: 2.0.7(react-native@0.72.6)(react@18.2.0)
+      react-native: 0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)
+      react-native-quick-base64: 2.0.7(react-native@0.72.6)
       stream-browserify: 3.0.0
       string_decoder: 1.3.0
     dev: false
 
-  /react-native-reanimated@3.5.4(@babel/core@7.22.11)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.22.5)(@babel/plugin-transform-shorthand-properties@7.22.5)(@babel/plugin-transform-template-literals@7.22.5)(react-native@0.72.6)(react@18.2.0):
+  /react-native-reanimated@3.5.4(@babel/core@7.22.11)(@babel/plugin-proposal-nullish-coalescing-operator@7.18.6)(@babel/plugin-proposal-optional-chaining@7.21.0)(@babel/plugin-transform-arrow-functions@7.22.5)(@babel/plugin-transform-shorthand-properties@7.22.5)(@babel/plugin-transform-template-literals@7.22.5)(react-native@0.72.6):
     resolution: {integrity: sha512-8we9LLDO1o4Oj9/DICeEJ2K1tjfqkJagqQUglxeUAkol/HcEJ6PGxIrpBcNryLqCDYEcu6FZWld/FzizBIw6bg==}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -13361,7 +13337,6 @@ packages:
       '@babel/plugin-transform-arrow-functions': ^7.0.0-0
       '@babel/plugin-transform-shorthand-properties': ^7.0.0-0
       '@babel/plugin-transform-template-literals': ^7.0.0-0
-      react: '*'
       react-native: '*'
     dependencies:
       '@babel/core': 7.22.11
@@ -13374,16 +13349,13 @@ packages:
       '@babel/preset-typescript': 7.23.2(@babel/core@7.22.11)
       convert-source-map: 2.0.0
       invariant: 2.2.4
-      react: 18.2.0
-      react-native: 0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)(react@18.2.0)
+      react-native: 0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)
     dev: true
 
-  /react-native@0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2)(react@18.2.0):
+  /react-native@0.72.6(@babel/core@7.22.11)(@babel/preset-env@7.23.2):
     resolution: {integrity: sha512-RafPY2gM7mcrFySS8TL8x+TIO3q7oAlHpzEmC7Im6pmXni6n1AuufGaVh0Narbr1daxstw7yW7T9BKW5dpVc2A==}
     engines: {node: '>=16'}
     hasBin: true
-    peerDependencies:
-      react: 18.2.0
     dependencies:
       '@jest/create-cache-key-function': 29.7.0
       '@react-native-community/cli': 11.3.7(@babel/core@7.22.11)
@@ -13411,14 +13383,13 @@ packages:
       nullthrows: 1.1.1
       pretty-format: 26.6.2
       promise: 8.3.0
-      react: 18.2.0
       react-devtools-core: 4.28.5
       react-refresh: 0.4.3
-      react-shallow-renderer: 16.15.0(react@18.2.0)
+      react-shallow-renderer: 16.15.0
       regenerator-runtime: 0.13.11
       scheduler: 0.24.0-canary-efb381bbf-20230505
       stacktrace-parser: 0.1.10
-      use-sync-external-store: 1.2.0(react@18.2.0)
+      use-sync-external-store: 1.2.0
       whatwg-fetch: 3.6.19
       ws: 6.2.2
       yargs: 17.7.2
@@ -13439,58 +13410,44 @@ packages:
     resolution: {integrity: sha512-Hwln1VNuGl/6bVwnd0Xdn1e84gT/8T9aYNL+HAKDArLCS7LWjwr7StE30IEYbIkx0Vi3vs+coQxe+SQDbGbbpA==}
     engines: {node: '>=0.10.0'}
 
-  /react-router-dom@6.8.2(react-dom@18.2.0)(react@18.2.0):
+  /react-router-dom@6.8.2(react-dom@18.2.0):
     resolution: {integrity: sha512-N/oAF1Shd7g4tWy+75IIufCGsHBqT74tnzHQhbiUTYILYF0Blk65cg+HPZqwC+6SqEyx033nKqU7by38v3lBZg==}
     engines: {node: '>=14'}
     peerDependencies:
-      react: '>=16.8'
       react-dom: '>=16.8'
     dependencies:
       '@remix-run/router': 1.3.3
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      react-router: 6.8.2(react@18.2.0)
+      react-dom: 18.2.0
+      react-router: 6.8.2
     dev: false
 
-  /react-router@6.8.2(react@18.2.0):
+  /react-router@6.8.2:
     resolution: {integrity: sha512-lF7S0UmXI5Pd8bmHvMdPKI4u4S5McxmHnzJhrYi9ZQ6wE+DA8JN5BzVC5EEBuduWWDaiJ8u6YhVOCmThBli+rw==}
     engines: {node: '>=14'}
-    peerDependencies:
-      react: '>=16.8'
     dependencies:
       '@remix-run/router': 1.3.3
-      react: 18.2.0
     dev: false
 
-  /react-shallow-renderer@16.15.0(react@18.2.0):
+  /react-shallow-renderer@16.15.0:
     resolution: {integrity: sha512-oScf2FqQ9LFVQgA73vr86xl2NaOIX73rh+YFqcOp68CWj56tSfgtGKrEbyhCj0rSijyG9M1CYprTh39fBi5hzA==}
-    peerDependencies:
-      react: ^16.0.0 || ^17.0.0 || ^18.0.0
     dependencies:
       object-assign: 4.1.1
-      react: 18.2.0
       react-is: 18.2.0
 
-  /react-test-renderer@16.14.0(react@16.14.0):
+  /react-test-renderer@16.14.0:
     resolution: {integrity: sha512-L8yPjqPE5CZO6rKsKXRO/rVPiaCOy0tQQJbC+UjPNlobl5mad59lvPjwFsQHTvL03caVDIVr9x9/OSgDe6I5Eg==}
-    peerDependencies:
-      react: ^16.14.0
     dependencies:
       object-assign: 4.1.1
       prop-types: 15.8.1
-      react: 16.14.0
       react-is: 16.13.1
       scheduler: 0.19.1
     dev: true
 
-  /react-test-renderer@18.2.0(react@18.2.0):
+  /react-test-renderer@18.2.0:
     resolution: {integrity: sha512-JWD+aQ0lh2gvh4NM3bBM42Kx+XybOxCpgYK7F8ugAlpaTSnWsX+39Z4XkOykGZAHrjwwTZT3x3KxswVWxHPUqA==}
-    peerDependencies:
-      react: ^18.2.0
     dependencies:
-      react: 18.2.0
       react-is: 18.2.0
-      react-shallow-renderer: 16.15.0(react@18.2.0)
+      react-shallow-renderer: 16.15.0
       scheduler: 0.23.0
     dev: true
 
@@ -15320,26 +15277,20 @@ packages:
       querystring: 0.2.0
     dev: true
 
-  /use-fireproof@0.7.3(react-dom@17.0.2)(react@17.0.2):
+  /use-fireproof@0.7.3(react-dom@17.0.2):
     resolution: {integrity: sha512-gIlFrBY/v3QLQ6aHhX829zHHRwoiMylMWic6oqVLHJB3F/b3eBuAwv1wZ6A9k+HYI3au9/QwhIUAtkTXF7kzdw==}
     peerDependencies:
-      react: '>= 16.8.0'
       react-dom: '>= 16.8.0'
     dependencies:
       '@fireproof/core': 0.7.2
-      react: 17.0.2
-      react-dom: 17.0.2(react@17.0.2)
+      react-dom: 17.0.2
     transitivePeerDependencies:
       - encoding
       - supports-color
     dev: false
 
-  /use-sync-external-store@1.2.0(react@18.2.0):
+  /use-sync-external-store@1.2.0:
     resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      react: 18.2.0
 
   /use@3.1.1:
     resolution: {integrity: sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==}

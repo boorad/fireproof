@@ -112,6 +112,12 @@ const require = createRequire(import.meta.url);
       loader: rnEsbuildConfig.loader,
       inject: rnEsbuildConfig.inject,
       logLevel: 'verbose',
+      banner: bannerLog`
+      console.log('test build');
+      console.log('global', global);
+      console.log('global.window', global.window);
+      console.log('window', window);
+      `,
     };
     builds.push(testEsmConfig);
 

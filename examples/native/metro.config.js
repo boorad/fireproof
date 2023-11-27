@@ -1,34 +1,45 @@
+const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
 const path = require('path');
-
-const {
-  exclusionList,
-  makeMetroConfig,
-  resolveUniqueModule,
-} = require("@rnx-kit/metro-config");
 
 const local = path.resolve(path.join(__dirname, './node_modules'));
 const pnpm = path.resolve(path.join(__dirname, '../../node_modules/.pnpm'));
 const fireproofCore = path.resolve(path.join(__dirname, '../../packages/fireproof'));
 const useFireproof = path.resolve(path.join(__dirname, '../../packages/react'));
 
-// to ensure only one instance of a package
-const [reactPath, reactExcludePattern] = resolveUniqueModule("react");
-const [rnPath, rnExcludePattern] = resolveUniqueModule("react-native");
-const additionalExclusions = [reactExcludePattern];
-const blockList = exclusionList(additionalExclusions);
-console.log({reactPath, rnPath});
-
-module.exports = makeMetroConfig({
+/**
+ * Metro configuration
+ * https://facebook.github.io/metro/docs/configuration
+ *
+ * @type {import('metro-config').MetroConfig}
+ */
+const config = {
+  projectRoot: __dirname,
   resolver: {
-    blockList,
-    extraNodeModules: {
-      "react": reactPath,
-      "react-native": rnPath,
+    nodeModulesPaths: [
+      local,
+      pnpm,
+    ],
+    // "Please use our `node_modules` instance of these packages"
+    resolveRequest: (context, moduleName, platform) => {
+      if (
+        // Add to this list whenever a new React-reliant dependency is added
+        // moduleName.startsWith("react") ||
+        // moduleName.startsWith("@react-native") ||
+        // moduleName.startsWith("@react-native-community") ||
+        moduleName.startsWith("@fireproof") ||
+        moduleName.startsWith("use-fireproof")
+      ) {
+        const pathToResolve = path.resolve(
+          __dirname,
+          "node_modules",
+          moduleName
+        );
+        console.log('metro', moduleName, pathToResolve);
+        return context.resolveRequest(context, pathToResolve, platform);
+      }
+      // Optionally, chain to the standard Metro resolver.
+      return context.resolveRequest(context, moduleName, platform);
     },
-    // nodeModulesPaths: [
-    //   local,
-    //   pnpm,
-    // ],
     sourceExts: ['jsx', 'js', 'ts', 'tsx', 'cjs', 'json', 'd.ts', 'esm.js'],
     unstable_enableSymlinks: true,
     unstable_enablePackageExports: true,
@@ -47,4 +58,6 @@ module.exports = makeMetroConfig({
     fireproofCore,
     useFireproof,
   ],
-});
+};
+
+module.exports = mergeConfig(getDefaultConfig(__dirname), config);

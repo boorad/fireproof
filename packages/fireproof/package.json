@@ -88,8 +88,8 @@
     "url": "https://github.com/fireproof-storage/fireproof/issues"
   },
   "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
+    "react": "18.2.0",
+    "react-native": "0.72.6"
   },
   "devDependencies": {
     "@babel/plugin-syntax-flow": "^7.23.3",
@@ -124,6 +124,8 @@
     "path-browserify": "^1.0.1",
     "process": "^0.11.10",
     "puppeteer": "^21.0.3",
+    "react": "18.2.0",
+    "react-native": "0.72.6",
     "react-native-esbuild": "link:../../../react-native-esbuild",
     "react-native-reanimated": "^3.5.4",
     "rollup-plugin-polyfill-node": "^0.12.0",

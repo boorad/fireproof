@@ -1,12 +1,3 @@
-// TODO: This test won't work unless we also bundle React Native into the files generated for tests.
-//  Of course, for lib releases, we want to make RN external.
-//
-//  We could:
-//  1. patch `esbuild` to handle Facebook Flow annotations
-//  2. try the `esbuild-plugin-flow` to strip them out
-//
-//  The second (Plugin) option probably has more work a la `react-native-esbuild` or similar projects
-
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */

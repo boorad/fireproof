@@ -2,12 +2,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "reactnative",
+      "name": "example rn app",
       "request": "launch",
       "type": "reactnative",
       "cwd": "${workspaceFolder}/examples/native",
       "platform": "ios",
-      "runArguments": ["--simulator", "iPhone 14"],
+      "runArguments": ["--simulator", "iPhone 15"],
       "internalConsoleOptions": "openOnSessionStart",
     },
     {
