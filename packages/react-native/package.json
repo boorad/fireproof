@@ -1,36 +1,21 @@
 {
-  "name": "@fireproof/core",
+  "name": "@fireproof/react-native",
   "version": "0.14.8",
-  "description": "Live database for the web.",
-  "main": "./dist/browser/fireproof.cjs",
-  "module": "./dist/browser/fireproof.esm.js",
+  "description": "Fireproof live database, for React Native",
   "exports": {
     ".": {
-      "import": "./dist/browser/fireproof.esm.js",
-      "require": "./dist/browser/fireproof.cjs",
-      "types": "./dist/types/fireproof.d.ts",
-      "script": "./dist/browser/fireproof.iife.js"
-    },
-    "./node": {
-      "import": "./dist/node/fireproof.esm.js",
-      "require": "./dist/node/fireproof.cjs",
-      "types": "./dist/types/fireproof.d.ts",
-      "script": "./dist/browser/fireproof.iife.js",
-      "default": "./dist/node/fireproof.esm.js"
-    },
-    "./memory": {
-      "import": "./dist/memory/fireproof.esm.js",
-      "types": "./dist/types/fireproof.d.ts",
-      "default": "./dist/memory/fireproof.esm.js"
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts",
+      "script": "./dist/index.esm.js",
+      "default": "./dist/index.esm.js"
     }
   },
-  "browser": "./dist/fireproof.browser.iife.js",
-  "types": "./dist/types/fireproof.d.ts",
+  "module": "./dist/index.esm.js",
+  "react-native": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
   "files": [
-    "dist/node",
-    "dist/memory",
-    "dist/browser",
-    "dist/types"
+    "dist"
   ],
   "type": "module",
   "scripts": {
@@ -39,8 +24,8 @@
     "clean": "rm -rf dist/*",
     "build:version": "node -p \"'export const PACKAGE_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
     "esbuild": "node ./scripts/build.js",
-    "esbuild:watch": "nodemon -w src -w scripts -w package.json -e ts,js --exec \"npm run clean && npm run esbuild && npm run build:_types && yalc push\"",
-    "build:_types": "tsc --declaration --outDir dist/types && node ./scripts/types.js",
+    "esbuild:watch": "nodemon -w src -w scripts -w package.json -e ts,js --exec \"yarn run clean && yarn run esbuild && yalc push\"",
+    "build:_types": "tsc --declaration --outDir dist",
     "build:rollup": "rollup -c scripts/rollup.js",
     "build:tsc": "npm run clean && tsc && mkdir dist/tsc && mv dist/*.js dist/tsc/ && node ./scripts/types.js",
     "test:watch:follow": "nodemon -w src -w test -e ts,js --exec \"sleep 2 && npm run test:node\"",
@@ -50,7 +35,6 @@
     "lint:exports": "ts-unused-exports tsconfig.json",
     "serve": "npx serve-http -p 8080 test/www",
     "lint": "eslint 'src/**/*.{js,ts}'",
-    "analyze": "node ./scripts/analyze.js",
     "test:coverage": "c8 --reporter=html --include='dist/*' node ./scripts/test.js && open coverage/src/index.html",
     "tsc:watch": "tsc --watch",
     "lint:all": "npm run lint:fix && npm run lint:exports",
@@ -85,22 +69,16 @@
   "bugs": {
     "url": "https://github.com/fireproof-storage/fireproof/issues"
   },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
   "devDependencies": {
-    "@hyrious/esbuild-plugin-commonjs": "^0.2.2",
-    "@rollup/plugin-alias": "^5.0.0",
-    "@rollup/plugin-commonjs": "^25.0.4",
-    "@rollup/plugin-json": "^6.0.0",
-    "@rollup/plugin-node-resolve": "^15.2.0",
     "@types/async": "^3.2.20",
-    "@types/mocha": "^10.0.1",
     "@typescript-eslint/eslint-plugin": "^6.1.0",
     "@typescript-eslint/parser": "^6.1.0",
-    "browser-assert": "^1.2.1",
-    "c8": "^8.0.1",
-    "crypto-browserify": "^3.12.0",
-    "esbuild": "^0.18.14",
+    "esbuild": "^0.19.5",
     "esbuild-plugin-alias": "^0.2.1",
-    "esbuild-plugin-polyfill-node": "^0.3.0",
     "esbuild-plugin-tsc": "^0.4.0",
     "eslint": "^8.45.0",
     "eslint-config-standard": "^17.1.0",
@@ -108,40 +86,25 @@
     "eslint-plugin-mocha": "^10.1.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
-    "memfs": "^4.2.1",
+    "flow-remove-types": "^2.221.0",
     "mocha": "^10.2.0",
     "nodemon": "^3.0.1",
-    "os-browserify": "^0.3.0",
-    "path-browserify": "^1.0.1",
-    "process": "^0.11.10",
-    "puppeteer": "^21.0.3",
-    "rollup-plugin-polyfill-node": "^0.12.0",
-    "rollup-plugin-visualizer": "^5.9.2",
-    "stream-browserify": "^3.0.0",
     "ts-unused-exports": "^10.0.0",
     "tslib": "^2.6.0",
-    "typescript": "^5.1.6",
+    "typescript": "^5.2.2",
     "util": "^0.12.5"
   },
   "dependencies": {
-    "@alanshaw/pail": "^0.3.3",
-    "@ipld/car": "^5.2.0",
-    "@ipld/dag-cbor": "^9.0.3",
-    "@ipld/dag-json": "^10.1.2",
-    "@ipld/dag-ucan": "^3.3.2",
-    "@ipld/unixfs": "^2.1.1",
-    "@peculiar/webcrypto": "^1.4.3",
-    "@ucanto/core": "^8.2.0",
-    "@ucanto/interface": "^8.1.0",
-    "@web3-storage/clock": "^0.3.0",
-    "@web3-storage/w3up-client": "^8.0.1",
-    "charwise": "^3.0.1",
-    "cross-fetch": "^4.0.0",
-    "idb": "^7.1.1",
-    "ipfs-unixfs-exporter": "^13.1.7",
-    "multiformats": "^12.0.1",
-    "p-limit": "^4.0.0",
-    "prolly-trees": "^1.0.4",
-    "uuidv7": "^0.6.2"
+    "@craftzdog/react-native-buffer": "^6.0.5",
+    "@fireproof/core": "file:.yalc/@fireproof/core",
+    "base-64": "^1.0.0",
+    "react-native-fs": "^2.20.0",
+    "react-native-mmkv-storage": "^0.9.1",
+    "react-native-polyfill-globals": "^3.1.0",
+    "react-native-quick-base64": "^2.0.7",
+    "react-native-quick-crypto": "^0.6.1",
+    "readable-stream": "^4.4.2",
+    "text-encoding": "^0.7.0",
+    "web-streams-polyfill": "^3.2.1"
   }
 }
