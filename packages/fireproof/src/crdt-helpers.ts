@@ -32,7 +32,7 @@ export async function applyBulkUpdateToCrdt(
         result.head = head
       }
     }
-    for (const { cid, bytes } of [...result.additions, ...result.removals, result.event]) {
+    for (const { cid, bytes } of [...result.additions, ...result.removals]) { // TODO: removed `, result.event` from array for type generation to work
       tblocks.putSync(cid, bytes)
     }
     head = result.head

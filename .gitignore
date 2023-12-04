@@ -6,3 +6,4 @@ pail.car
 out/
 *.zip
 .yalc/
+yalc.lock

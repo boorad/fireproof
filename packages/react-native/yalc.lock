@@ -1,9 +1,0 @@
-{
-  "version": "v1",
-  "packages": {
-    "@fireproof/core": {
-      "signature": "b3c5596da692f1ca3f764ed89a1d907d",
-      "file": true
-    }
-  }
-}
