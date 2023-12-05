@@ -31,6 +31,16 @@
       "args": [],
     },
     {
+      "name": "esbuild (@fireproof/react-native)",
+      "type": "node",
+      "request": "launch",
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
+      "cwd": "${workspaceFolder}/packages/react-native",
+      "program": "${workspaceFolder}/packages/react-native/scripts/build.js",
+      "args": [],
+    },
+    {
       "name": "test (store-native)",
       "type": "node",
       "request": "launch",

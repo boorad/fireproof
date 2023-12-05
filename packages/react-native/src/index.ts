@@ -1,3 +1,5 @@
+// @fireproof/core
+import '@fireproof/core';
 
 // polyfills
 import { polyfill as polyfillBase64 } from 'react-native-polyfill-globals/src/base64';

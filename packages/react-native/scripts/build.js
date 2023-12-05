@@ -2,9 +2,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { build } from 'esbuild'
 import alias from 'esbuild-plugin-alias';
+// import fs from 'fs'
 import { dirname, join } from 'path';
-
 import { fileURLToPath } from 'url';
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 async function buildProject() {
@@ -40,22 +41,12 @@ async function buildProject() {
   const buildConfigs = [
     {
       ...baseConfig,
-      outfile: `dist/index.cjs`,
-      format: 'cjs',
-    },
-    {
-      ...baseConfig,
       outfile: `dist/index.esm.js`,
       format: 'esm',
-    },
-    {
-      ...baseConfig,
-      outfile: `dist/index.native.js`,
-      format: 'esm',
-      plugins: [
-        ...baseConfig.plugins,
-      ]
-    }
+      bundle: true,
+      minify: false, // TODO: dev flag?
+      sourcemap: true,
+     },
   ];
 
   for (const config of buildConfigs) {
@@ -65,6 +56,22 @@ async function buildProject() {
     })
   }
 }
+
+// const getEntrypoints = () => {
+
+//   // Obtain all .ts files in the @fireproof/core src directory
+//   const FIREPROOF_SRC = join(__dirname, '../../fireproof/src');
+//   const entryPoints = fs
+//     .readdirSync(FIREPROOF_SRC)
+//     .filter(file => path.extname(file) === '.ts')
+//     .filter(file => !(file.includes('-browser') || file.includes('-fs') || file.includes('-node') || file.includes('-web')))
+//     .map(file => path.join(FIREPROOF_SRC, file))
+
+//   return [
+//     join(__dirname, 'src/index.ts'),
+//     ...entryPoints,
+//   ];
+// };
 
 buildProject().catch((err) => {
   console.error(err)
