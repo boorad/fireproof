@@ -5,7 +5,7 @@ import { decodeEncryptedCar, encryptedEncodeCarFile } from './encrypt-helpers'
 import { getCrypto, randomBytes } from './crypto-web'
 
 import { DataStore, MetaStore, RemoteWAL } from './store-browser'
-import { DataStore as AbstractDataStore, MetaStore as AbstractMetaStore } from './store'
+import { DataStoreBase as AbstractDataStore, MetaStoreBase as AbstractMetaStore } from './store'
 
 import { CID } from 'multiformats'
 import type { Transaction } from './transaction'
@@ -103,7 +103,7 @@ export abstract class Loader {
   async _readyForMerge() {}
   async _setWaitForWrite(_writing: () => Promise<void>) {}
 
-  async handleDbMetasFromStore(metas: DbMeta[]): Promise<void> {    
+  async handleDbMetasFromStore(metas: DbMeta[]): Promise<void> {
     for (const meta of metas) {
       const writingFn = async () => {
         this.isWriting = true

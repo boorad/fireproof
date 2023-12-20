@@ -4,8 +4,8 @@ import { join, dirname } from 'path'
 import { homedir } from 'os'
 import { mkdir, readFile, writeFile, unlink } from 'fs/promises'
 import type { AnyBlock, AnyLink, DbMeta } from './types'
-import { STORAGE_VERSION, MetaStore as MetaStoreBase, DataStore as DataStoreBase } from './store'
-import { RemoteWAL as RemoteWALBase, WALState } from './remote-wal'
+import { STORAGE_VERSION, MetaStoreBase, DataStoreBase } from './store'
+import { RemoteWALBase, WALState } from './remote-wal'
 
 // todo refactor this system to the current store-remote is the new prototype
 // this would mean that there'd be a version of filesystem and browser access

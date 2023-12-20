@@ -24,20 +24,24 @@ const path = require('path');
 const config = {
   projectRoot: __dirname,
   resolver: {
-    // resolveRequest: (context, moduleName, platform) => {
-    //   if (moduleName.endsWith('./store-browser')) {
-    //     console.log('replace browser w native', __dirname, moduleName);
-    //     return {
-    //       filePath: `${__dirname}/node_modules/@fireproof/core/src/store-native.ts`,
-    //       type: 'sourceFile',
-    //     }
-    //   }
-    //   // if (moduleName.startsWith('./')) {
-    //   //   console.log('local module ?  ', moduleName);
-    //   // }
-    //   // Optionally, chain to the standard Metro resolver.
-    //   return context.resolveRequest(context, moduleName, platform);
-    // },
+    extraNodeModules: {
+      crypto: path.resolve(__dirname, './node_modules/react-native-quick-crypto'),
+      stream: path.resolve(__dirname, './node_modules/readable-stream'),
+    },
+    resolveRequest: (context, moduleName, platform) => {
+      if (moduleName.endsWith('./store-browser')) {
+        console.log('replace browser w native', __dirname, moduleName);
+        return {
+          filePath: `${__dirname}/node_modules/@fireproof/core/src/store-native.ts`,
+          type: 'sourceFile',
+        }
+      }
+      // if (moduleName.startsWith('./')) {
+      //   console.log('local module ?  ', moduleName);
+      // }
+      // Optionally, chain to the standard Metro resolver.
+      return context.resolveRequest(context, moduleName, platform);
+    },
     //
     // // "Please use our `node_modules` instance of these packages"
     // resolveRequest: (context, moduleName, platform) => {
@@ -68,17 +72,17 @@ const config = {
     // },
     // nodeModulesPaths,
     resolverMainFields: ['react-native', 'browser', 'module', 'main'],
-    sourceExts: ['jsx', 'js', 'ts', 'tsx', 'cjs', 'mjs', 'json', 'd.ts', 'esm.js', 'iife.js'],
+    sourceExts: ['jsx', 'js', 'ts', 'tsx', 'cjs', 'mjs', 'json', 'd.ts', 'esm.js', 'native.js'],
     unstable_enableSymlinks: true,
     unstable_enablePackageExports: true,
   },
-  transformer: {
-    getTransformOptions: async () => ({
-      transform: {
-        inlineRequires: true,
-      },
-    }),
-  },
+  // transformer: {
+  //   getTransformOptions: async () => ({
+  //     transform: {
+  //       inlineRequires: true,
+  //     },
+  //   }),
+  // },
   // watchFolders,
 };
 

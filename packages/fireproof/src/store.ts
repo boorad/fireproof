@@ -15,7 +15,7 @@ abstract class VersionedStore {
   }
 }
 
-export abstract class MetaStore extends VersionedStore {
+export abstract class MetaStoreBase extends VersionedStore {
   tag: string = 'header-base'
 
   makeHeader({ car, key }: DbMeta): ToString<DbMeta> {
@@ -36,7 +36,7 @@ type DataSaveOpts = {
   public?: boolean
 }
 
-export abstract class DataStore {
+export abstract class DataStoreBase {
   tag: string = 'car-base'
 
   STORAGE_VERSION: string = STORAGE_VERSION

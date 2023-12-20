@@ -12,7 +12,7 @@ export type WALState = {
   fileOperations: { cid: AnyLink; public: boolean; }[];
 };
 
-export abstract class RemoteWAL {
+export abstract class RemoteWALBase {
   tag: string = 'rwal-base';
 
   STORAGE_VERSION: string = STORAGE_VERSION;

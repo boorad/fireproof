@@ -23,8 +23,9 @@ const Todos = () => {
   let database: Database;
 
   try {
-    console.log('fireproof', fireproof);
     database = fireproof('todos');
+    console.log('fireproof', fireproof);
+    console.log('database', database);
   } catch(e) {
     console.error(e);
   }

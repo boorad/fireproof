@@ -15,7 +15,7 @@ import type { CRDT } from './crdt'
 import type { CRDTClock } from './crdt-clock'
 import { Loader, Connection } from './loader'
 import { index } from './index'
-import type { DataStore as AbstractDataStore } from './store'
+import type { DataStoreBase as AbstractDataStore } from './store'
 
 import { DataStore } from './store-browser'
 import { doCompact } from './crdt-helpers'

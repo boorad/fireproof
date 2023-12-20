@@ -2,8 +2,8 @@
 import { format, parse, ToString } from '@ipld/dag-json'
 import { MMKVLoader, MMKVInstance } from 'react-native-mmkv-storage';
 import { AnyBlock, AnyLink, DbMeta } from './types'
-import { DataStore as DataStoreBase, MetaStore as MetaStoreBase } from './store'
-import { RemoteWAL as RemoteWALBase, WALState } from './remote-wal'
+import { DataStoreBase, MetaStoreBase } from './store'
+import { RemoteWALBase, WALState } from './remote-wal'
 
 // ts-unused-exports:disable-next-line
 export class DataStore extends DataStoreBase {

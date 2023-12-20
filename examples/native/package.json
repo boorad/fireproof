@@ -18,7 +18,7 @@
     "react-native-fs": "^2.20.0",
     "react-native-mmkv-storage": "^0.9.1",
     "react-native-quick-base64": "^2.0.7",
-    "react-native-quick-crypto": "^0.6.1",
+    "react-native-quick-crypto": "https://github.com/ospfranco/react-native-quick-crypto#ECDSA",
     "stream-browserify": "^3.0.0",
     "text-encoding": "^0.7.0",
     "web-streams-polyfill": "^3.2.1"
@@ -27,6 +27,7 @@
     "@babel/core": "^7.20.0",
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",
+    "@react-native-community/cli": "^13.0.0",
     "@react-native-community/cli-platform-android": "^11.3.9",
     "@react-native-community/cli-platform-ios": "^11.3.9",
     "@react-native/babel-preset": "^0.73.18",

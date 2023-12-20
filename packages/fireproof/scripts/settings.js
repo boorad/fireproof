@@ -244,13 +244,13 @@ console.log('cjs/es2015 build');
 
       builds.push(reactNativeEsmConfig);
 
-      const reactNativeCjsConfig = {
-        ...reactNativeEsmConfig,
-        outfile: `dist/react-native/${filename}.cjs`,
-        format: 'cjs',
-        banner: bannerLog`console.log('react-native CJS build');`,
-      };
-      builds.push(reactNativeCjsConfig);
+      // const reactNativeCjsConfig = {
+      //   ...reactNativeEsmConfig,
+      //   outfile: `dist/react-native/${filename}.cjs`,
+      //   format: 'cjs',
+      //   banner: bannerLog`console.log('react-native CJS build');`,
+      // };
+      // builds.push(reactNativeCjsConfig);
     }
 
     return builds
