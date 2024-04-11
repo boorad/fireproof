@@ -225,7 +225,8 @@ console.log('cjs/es2015 build');
           // myPlugin(),
           alias(
             {
-              'crypto': join(__dirname, '../node_modules/react-native-quick-crypto/lib/module/index.js'),
+              // 'crypto': join(__dirname, '../node_modules/react-native-quick-crypto/lib/module/index.js'),
+              'crypto': join(__dirname, '../node_modules/@peculiar/webcrypto/build/webcrypto.js'),
               'stream': join(__dirname, '../node_modules/readable-stream/lib/ours/index.js'),
               'buffer': join(__dirname, '../node_modules/@craftzdog/react-native-buffer/index.js'),
               './buffer-reader.js': join(__dirname, '../node_modules/@ipld/car/src/buffer-reader-browser.js'),

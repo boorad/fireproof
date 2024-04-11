@@ -13,6 +13,7 @@ import { Buffer } from "@craftzdog/react-native-buffer";
 polyfillGlobal('buffer', () => Buffer);
 
 // crypto
+// TODO: this is successfully? handled in examples/native/metro.config.js
 
 // encoding
 import { polyfill as polyfillEncoding } from 'react-native-polyfill-globals/src/encoding';

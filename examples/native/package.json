@@ -18,7 +18,7 @@
     "react-native-fs": "^2.20.0",
     "react-native-mmkv-storage": "^0.9.1",
     "react-native-quick-base64": "^2.0.7",
-    "react-native-quick-crypto": "https://github.com/ospfranco/react-native-quick-crypto#ECDSA",
+    "react-native-quick-crypto": "https://github.com/boorad/react-native-quick-crypto#more-subtle-impls",
     "stream-browserify": "^3.0.0",
     "text-encoding": "^0.7.0",
     "web-streams-polyfill": "^3.2.1"
