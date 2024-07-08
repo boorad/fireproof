@@ -15,8 +15,7 @@ export type Todo = { text: string; date: number; completed: boolean; };
 export type TodoFromAllDocs = { key: string; value: Doc<Todo>; };
 
 const TodoList = () => {
-  // TODO: {public: true} is there until crypto.subtle.(encrypt|decrypt) are present in RNQC
-  const { database: db, useDocument, useLiveQuery } = useFireproof('TodoDB', {public: true});
+  const { database: db, useDocument, useLiveQuery } = useFireproof('TodoDB');
 
   const defaultTodo = {
     text: '',

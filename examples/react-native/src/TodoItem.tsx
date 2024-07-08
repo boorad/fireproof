@@ -1,9 +1,9 @@
+import React, { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import Checkbox from '@react-native-community/checkbox';
 import { useFireproof } from "@fireproof/react-native";
 import { Todo, TodoFromAllDocs } from "./TodoList";
-import { Doc } from "@fireproof/core";
-import React, { useState } from "react";
+// import { Doc } from "@fireproof/core";
 
 type TodoItemProps = {
   item: TodoFromAllDocs;
