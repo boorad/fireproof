@@ -76,9 +76,9 @@ interface Startable {
 class EnsureStart<T extends Startable> {
   readonly oncePerStore = new ResolveOnce<T>();
 
-  reset() {
-    this.oncePerStore.reset();
-  }
+  // reset() {
+  //   this.oncePerStore.reset(true);
+  // }
   once(fn: () => Promise<T>) {
     return this.oncePerStore.once(async () => {
       const ret = await fn();
@@ -154,10 +154,10 @@ export class Loader implements Loadable {
         store.close();
       }),
     );
-    this.ensureCarStore.reset();
-    this.ensureFileStore.reset();
-    this.ensureRemoteFileStore.reset();
-    this.ensureMetaStore.reset();
+    // this.ensureCarStore.reset();
+    // this.ensureFileStore.reset();
+    // this.ensureRemoteFileStore.reset();
+    // this.ensureMetaStore.reset();
   }
 
   async destroy() {

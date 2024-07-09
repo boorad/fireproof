@@ -1,136 +1,157 @@
-import type {
-  AnyBlock,
-  AnyLink,
-  DbMeta,
-  Loadable,
-  Loader
-} from '@fireproof/core';
 import {
-  DataStore as DataStoreBase,
-  MetaStore as MetaStoreBase,
-  RemoteWAL as RemoteWALBase,
-  WALState
+  bs,
+  ensureLogger,
+  Falsy,
+  LoggerOpts
 } from '@fireproof/core';
 import { format, parse, ToString } from '@ipld/dag-json';
 import { MMKV } from 'react-native-mmkv';
 
-export const makeDataStore = (name: string) => new DataStore(name);
-export const makeMetaStore = (loader: Loader) => new MetaStore(loader.name);
-export const makeRemoteWAL = (loader: Loadable) => new RemoteWAL(loader);
+const buildURL = (type: string, name: string, opts: bs.StoreOpts): URL => {
+  const url = new URL(`mmkv+fp://${name}`);
+  url.searchParams.set("type", type);
+  if (opts.isIndex) {
+    url.searchParams.set("index", String(opts.isIndex));
+  }
+  return url;
+};
 
-export class DataStore extends DataStoreBase {
-  tag: string = 'car-native-mmkv';
-  store: MMKV | null = null;
+export const ReactNativeStoreFactory = (sopts: bs.StoreOpts & LoggerOpts = {}): bs.StoreFactory => ({
+  makeDataStore: async (loader: bs.Loadable): Promise<bs.DataStore> => {
+    return new DataStore(loader.name, buildURL("data", loader.name, sopts), sopts);
+  },
+  makeMetaStore: async (loader: bs.Loadable): Promise<bs.MetaStore> => {
+    return new MetaStore(loader.name, buildURL("meta", loader.name, sopts), sopts);
+  },
+  makeRemoteWAL: async (loader: bs.Loadable): Promise<bs.RemoteWAL> => {
+    return new RemoteWAL(loader, buildURL("wal", loader.name, sopts), sopts);
+  },
+});
 
-  async _withDB(dbWorkFun: (db: MMKV) => Promise<AnyBlock | void>) {
+class DataStore extends bs.DataStore {
+  store: MMKV;
+
+  constructor(name: string, url: URL, logger: LoggerOpts) {
+    super(name, url, ensureLogger(logger, "ReactNativeDataStore", { name, url }));
+  }
+
+  async start(): Promise<void> {
     if (!this.store) {
-      const dbName = `fp.${this.STORAGE_VERSION}.${this.name}`;
       this.store = new MMKV({
-        id: dbName,
+        id: `fp.${this.STORAGE_VERSION}.${this.name}`,
       });
     }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return await dbWorkFun(this.store);
   }
 
-  async load(cid: AnyLink): Promise<AnyBlock> {
-    return (await this._withDB(async (db: MMKV) => {
-      const bytes = db.getBuffer(cid.toString());
-      if (!bytes) throw new Error(`missing db block ${cid.toString()}`);
-      return { cid, bytes };
-    })) as AnyBlock;
+  async load(cid: bs.AnyLink): Promise<bs.AnyBlock> {
+    const bytes = this.store.getBuffer(cid.toString());
+    if (!bytes) throw new Error(`missing db block ${cid.toString()}`);
+    return { cid, bytes };
   }
 
-  async save(car: AnyBlock): Promise<void> {
-    return (await this._withDB(async (db: MMKV) => {
-      db.set(car.cid.toString(), car.bytes);
-    })) as void;
+  async save(car: bs.AnyBlock): Promise<void> {
+      this.store.set(car.cid.toString(), car.bytes);
   }
 
-  async remove(cid: AnyLink): Promise<void> {
-    return (await this._withDB(async (db: MMKV) => {
-      db.delete(cid.toString());
-    })) as void;
+  async remove(cid: bs.AnyLink): Promise<void> {
+      this.store.delete(cid.toString());
+  }
+
+  async close(): Promise<void> {
+    // no-op
+  }
+
+  async destroy(): Promise<void> {
+    this.store.clearAll();
   }
 }
 
-export class RemoteWAL extends RemoteWALBase {
-  tag: string = 'wal-native-mmkv';
-  store: MMKV | null = null;
+export class RemoteWAL extends bs.RemoteWAL {
+  store: MMKV;
+
+  constructor(loader: bs.Loadable, url: URL, logger: LoggerOpts) {
+    super(loader, url, ensureLogger(logger, "ReactNativeRemoteWAL", { name: loader.name, url }));
+  }
+
+  async start(): Promise<void> {
+    if (!this.store) {
+      this.store = new MMKV({
+        id: `fp.wal`,
+      });
+    }
+  }
+
+  // eslint-disable-next-line @typescript-eslint/require-await
+  async _load(branch = 'main'): Promise<bs.WALState | Falsy> {
+    const doc = this.store.getString(this.headerKey(branch));
+    if (!doc) return null;
+    return parse<bs.WALState>(doc);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/require-await
+  async _save(state: bs.WALState, branch = 'main'): Promise<void> {
+    const encoded: ToString<bs.WALState> = format(state);
+    this.store.set(this.headerKey(branch), encoded);
+  }
+
+  async _close(): Promise<void> {
+    // no-op
+  }
+
+  async _destroy(): Promise<void> {
+    this.store.clearAll();
+  }
 
   headerKey(branch: string) {
     // remove 'public' on next storage version bump
-    return `fp.${this.STORAGE_VERSION}.wal.${this.loader.name}.${branch}`;
+    return `fp.wal.${this.loader.name}.${branch}`;
   }
 
-  async _withDB(dbWorkFun: (arg0: MMKV) => Promise<WALState | null | void>) {
-    if (!this.store) {
-      const dbName = `fp.${this.STORAGE_VERSION}.wal`;
-      this.store = new MMKV({
-        id: dbName,
-      });
-    }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return await dbWorkFun(this.store);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/require-await
-  async load(branch = 'main'): Promise<WALState | null> {
-    return (await this._withDB(async (db: MMKV) => {
-      const doc = db.getString(this.headerKey(branch));
-      if (!doc) return null;
-      return parse<WALState>(doc);
-    })) as WALState | null;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/require-await
-  async save(state: WALState, branch = 'main'): Promise<void> {
-    return (await this._withDB(async (db: MMKV) => {
-      const encoded: ToString<WALState> = format(state);
-      db.set(this.headerKey(branch), encoded);
-    })) as void;
-  }
 }
 
-export class MetaStore extends MetaStoreBase {
-  tag: string = 'header-native-mmkv';
-  store: MMKV | null = null;
+export class MetaStore extends bs.MetaStore {
+  store: MMKV;
+
+  constructor(name: string, url: URL, logger: LoggerOpts) {
+    super(name, url, ensureLogger(logger, "ReactNativeMetaStore", { name, url }));
+  }
+
+  async start(): Promise<void> {
+    if (!this.store) {
+      this.store = new MMKV({
+        id: `fp.${this.STORAGE_VERSION}.meta`,
+      });
+    }
+  }
+
+  // eslint-disable-next-line @typescript-eslint/require-await
+  async load(branch: string = 'main'): Promise<bs.DbMeta[] | Falsy> {
+    const doc = this.store.getString(this.headerKey(branch));
+    if (!doc) return null;
+    // TODO: react native wrt below?
+    // browser assumes a single writer process
+    // to support concurrent updates to the same database across multiple tabs
+    // we need to implement the same kind of mvcc.crdt solution as in store-fs and connect-s3
+    return [this.parseHeader(doc)];
+  }
+
+  // eslint-disable-next-line @typescript-eslint/require-await
+  async save(meta: bs.DbMeta, branch: string = 'main'): Promise<bs.DbMeta[] | Falsy> {
+    const headerKey = this.headerKey(branch);
+    const bytes = this.makeHeader(meta);
+    this.store.set(headerKey, bytes);
+    return null;
+  }
+
+  async close(): Promise<void> {
+    // no-op
+  }
+
+  async destroy(): Promise<void> {
+    this.store.clearAll();
+  }
 
   headerKey(branch: string) {
     return `fp.${this.STORAGE_VERSION}.meta.${this.name}.${branch}`;
-  }
-
-  async _withDB(dbWorkFun: (arg0: MMKV) => Promise<DbMeta[] | null>) {
-    if (!this.store) {
-      const dbName = `fp.${this.STORAGE_VERSION}.meta`;
-      this.store = new MMKV({
-        id: dbName,
-      });
-    }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return await dbWorkFun(this.store);
-  }
-
-  // eslint-disable-next-line @typescript-eslint/require-await
-  async load(branch: string = 'main'): Promise<DbMeta[] | null> {
-    return await this._withDB(async (db: MMKV) => {
-      const doc = db.getString(this.headerKey(branch));
-      if (!doc) return null;
-      // TODO: react native wrt below?
-      // browser assumes a single writer process
-      // to support concurrent updates to the same database across multiple tabs
-      // we need to implement the same kind of mvcc.crdt solution as in store-fs and connect-s3
-      return [this.parseHeader(doc)];
-    });
-  }
-
-  // eslint-disable-next-line @typescript-eslint/require-await
-  async save(meta: DbMeta, branch: string = 'main') {
-    return await this._withDB(async (db: MMKV) => {
-      const headerKey = this.headerKey(branch);
-      const bytes = this.makeHeader(meta);
-      db.set(headerKey, bytes);
-      return null;
-    });
   }
 }
