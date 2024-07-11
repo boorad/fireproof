@@ -32,9 +32,15 @@
   "devDependencies": {},
   "dependencies": {
     "@adviser/cement": "from-package-json",
+    "@ipld/car": "from-package-json",
+    "@ipld/dag-cbor": "from-package-json",
+    "@ipld/dag-json": "from-package-json",
+    "@ipld/unixfs": "from-package-json",
+    "@web3-storage/pail": "from-package-json",
     "charwise": "from-package-json",
     "prolly-trees": "from-package-json",
     "ipfs-unixfs-exporter": "from-package-json",
+    "std-env": "from-package-json",
     "uuidv7": "from-package-json"
   }
 }
