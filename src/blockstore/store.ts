@@ -188,6 +188,7 @@ export class MetaStoreImpl extends BaseStoreImpl implements MetaStore {
 
   onLoad(branch: string, loadHandler: LoadHandler): () => void {
     const subscribers = this.subscribers.get(branch) || [];
+    this.logger.Debug().Str("branch", branch).Len(subscribers).Msg("onLoad");
     subscribers.push(loadHandler);
     this.subscribers.set(branch, subscribers);
     return () => {
@@ -211,7 +212,9 @@ export class MetaStoreImpl extends BaseStoreImpl implements MetaStore {
   async handleSubscribers(dbMetas: DbMeta[], branch: string) {
     try {
       const subscribers = this.subscribers.get(branch) || [];
+      this.logger.Debug().Str("branch", branch).Len(subscribers).Any("dbMetas", dbMetas).Msg("handleSubscribers-pre");
       await Promise.all(subscribers.map((subscriber) => subscriber(dbMetas)));
+      this.logger.Debug().Str("branch", branch).Len(subscribers).Any("dbMetas", dbMetas).Msg("handleSubscribers-post");
     } catch (e) {
       this.logger.Error().Err(e).Msg("handleSubscribers").AsError();
     }

@@ -26,12 +26,12 @@ import { parseCarFile } from "./loader-helpers.js";
 
 import { CarTransaction, defaultedBlockstoreRuntime } from "./transaction.js";
 import { CommitQueue } from "./commit-queue.js";
-import type { Falsy } from "../types.js";
 import { getKeyBag } from "../runtime/key-bag.js";
 import { commit, commitFiles, CommitParams } from "./commitor.js";
 import { decode } from "../runtime/wait-pr-multiformats/block.js";
 import { sha256 as hasher } from "multiformats/hashes/sha2";
-import { ensureLogger } from "use-fireproof";
+import { ensureLogger } from "../utils.js";
+import { Falsy } from "../types.js";
 
 export function carLogIncludesGroup(list: CarLog, cids: CarGroup) {
   return list.some((arr: CarGroup) => {

@@ -70,6 +70,7 @@ export class KeyBag {
 
   async getNamedKey(name: string, failIfNotFound = false): Promise<Result<KeyWithFingerPrint>> {
     const id = Math.random().toString();
+    this.logger.Debug().Str("id", id).Str("name", name).Msg("getNamedKey--1");
     return this._seq.add(async () => {
       this.logger.Debug().Str("id", id).Str("name", name).Msg("getNamedKey-0");
       const bag = await this.rt.getBag();
@@ -124,6 +125,42 @@ export interface KeyBagRuntime {
   id(): string;
 }
 
+export type KeyBackProviderFactory = (url: URI, logger: Logger) => Promise<KeyBagProvider>;
+
+export interface KeyBagProviderFactoryItem {
+  readonly protocol: string;
+  // if this is set the default protocol selection is overridden
+  readonly override?: boolean;
+  readonly factory: KeyBackProviderFactory;
+}
+
+const keyBagProviderFactories = new Map<string, KeyBagProviderFactoryItem>(
+  [
+    {
+      protocol: "file:",
+      factory: async (url: URI, logger: Logger) => {
+        const { KeyBagProviderFile } = await import("./key-bag-file.js");
+        return new KeyBagProviderFile(url, logger);
+      },
+    },
+    {
+      protocol: "indexdb:",
+      factory: async (url: URI, logger: Logger) => {
+        const { KeyBagProviderIndexDB } = await import("./key-bag-indexdb.js");
+        return new KeyBagProviderIndexDB(url, logger);
+      },
+    },
+  ].map((i) => [i.protocol, i]),
+);
+
+export function registerKeyBagProviderFactory(item: KeyBagProviderFactoryItem) {
+  const protocol = item.protocol.endsWith(":") ? item.protocol : item.protocol + ":";
+  keyBagProviderFactories.set(protocol, {
+    ...item,
+    protocol,
+  });
+}
+
 function defaultKeyBagOpts(kbo: Partial<KeyBagOpts>): KeyBagRuntime {
   if (kbo.keyRuntime) {
     return kbo.keyRuntime;
@@ -132,49 +169,39 @@ function defaultKeyBagOpts(kbo: Partial<KeyBagOpts>): KeyBagRuntime {
   let url: URI;
   if (kbo.url) {
     url = URI.from(kbo.url);
+    logger.Debug().Url(url).Msg("from opts");
   } else {
     let bagFnameOrUrl = SysContainer.env.get("FP_KEYBAG_URL");
-    if (runtimeFn().isBrowser) {
-      url = URI.from(bagFnameOrUrl || "indexdb://fp-keybag");
-    } else {
-      if (!bagFnameOrUrl) {
-        const home = SysContainer.env.get("HOME");
-        bagFnameOrUrl = `${home}/.fireproof/keybag`;
-        url = URI.from(`file://${bagFnameOrUrl}`);
+    if (!bagFnameOrUrl) {
+      const override = Array.from(keyBagProviderFactories.values()).find((i) => i.override);
+      if (override) {
+        bagFnameOrUrl = `${override.protocol}//fp-keybag`;
       } else {
-        url = URI.from(bagFnameOrUrl);
+        if (runtimeFn().isBrowser) {
+          bagFnameOrUrl = "indexdb://fp-keybag";
+        } else {
+          const home = SysContainer.env.get("HOME");
+          bagFnameOrUrl = `file://${home}/.fireproof/keybag`;
+        }
       }
     }
+    url = URI.from(bagFnameOrUrl);
+    logger.Debug().Len(keyBagProviderFactories).Url(url).Msg("from env");
   }
-  let keyProviderFactory: () => Promise<KeyBagProvider>;
-  switch (url.protocol) {
-    case "file:":
-      keyProviderFactory = async () => {
-        const { KeyBagProviderFile } = await import("./key-bag-file.js");
-        return new KeyBagProviderFile(url, logger);
-      };
-      break;
-    case "indexdb:":
-      keyProviderFactory = async () => {
-        const { KeyBagProviderIndexDB } = await import("./key-bag-indexdb.js");
-        return new KeyBagProviderIndexDB(url, logger);
-      };
-      break;
-    default:
-      throw logger.Error().Url(url).Msg("unsupported protocol").AsError();
+  const keyProviderItem = keyBagProviderFactories.get(url.protocol);
+  if (!keyProviderItem) {
+    throw logger.Error().Url(url).Msg("unsupported protocol").AsError();
   }
   if (url.hasParam("masterkey")) {
     throw logger.Error().Url(url).Msg("masterkey is not supported").AsError();
   }
   return {
     url,
-    crypto: kbo.crypto || toCryptoRuntime({}),
+    crypto: kbo.crypto || toCryptoRuntime(),
     logger,
-    keyLength: kbo.keyLength || 16,
-    getBag: keyProviderFactory,
-    id: () => {
-      return url.toString();
-    },
+    keyLength: kbo.keyLength || 128 / 8,
+    getBag: () => keyProviderItem.factory(url, logger),
+    id: () => url.toString(),
   };
 }
 

@@ -1,10 +1,21 @@
-import { Logger, LoggerImpl, IsLogger, Result, ResolveOnce, URI, CoerceURI, runtimeFn, BuildURI, isURL } from "@adviser/cement";
+import {
+  Logger,
+  LoggerImpl,
+  IsLogger,
+  Result,
+  ResolveOnce,
+  URI,
+  type CoerceURI,
+  runtimeFn,
+  BuildURI,
+  isURL,
+} from "@adviser/cement";
 import { SysContainer } from "./runtime";
 import { uuidv7 } from "uuidv7";
 import { StoreType } from "./types";
 
-export type { Logger };
-export { Result };
+export type { Logger, CoerceURI };
+export { Result, URI, BuildURI };
 
 const globalLogger: Logger = new LoggerImpl();
 
