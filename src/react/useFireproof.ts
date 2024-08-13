@@ -258,12 +258,12 @@ export function useFireproof(name: string | Database = "useFireproof", config: C
 
     const queryString = useMemo(() => JSON.stringify(query), [query]);
     const mapFnString = useMemo(() => mapFn.toString(), [mapFn]);
-
     logger.Debug().Str("qString", queryString).Str("mapFn", mapFnString).Msg("useLiveQuery")
+    
     const refreshRows = useCallback(async () => {
       const all = await database.allDocs()
       const res = await database.query<K, T, R>(mapFn, query);
-      logger.Debug().Any("all", all).Any("mapFn", mapFn).Any("query", query).Any("res", res).Msg("db.querty")
+      logger.Debug().Any("all", all).Any("mapFn", mapFn).Any("query", query).Any("res", res).Msg("db.query")
       setResult({ ...res, docs: res.rows.map((r) => r.doc as DocWithId<T>) });
     }, [mapFnString, queryString]);
 
