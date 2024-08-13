@@ -1,6 +1,6 @@
 import { Database, DocFragment, DocTypes, IndexKeyType } from "@fireproof/core";
 
-import { LiveQueryResult, useFireproof, type UseLiveQuery } from "./useFireproof";
+import { type LiveQueryResult, useFireproof, type UseLiveQuery } from "./useFireproof";
 
 export type { LiveQueryResult };
 

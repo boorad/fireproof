@@ -1,58 +1,54 @@
-import { renderHook } from "@testing-library/react";
+import { cleanup } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
-import { rt, Database, useFireproof } from "use-fireproof";
-import { defaultTodo, generateTexts, populateDatabase, Todo } from "../helpers";
+import { rt, Database } from "use-fireproof";
+import { generateTexts, getUseFireproofHook, getUseLiveQueryHook, populateDatabase } from "../helpers";
 
 const TEST_DB_NAME = "test-useLiveQuery";
-
-interface TestContext {
-  useFireproof: ReturnType<typeof useFireproof>;
-  texts: string[];
-}
 
 describe("HOOK: useLiveQuery", () => {
   let db: Database;
   const texts = generateTexts();
 
   afterEach(async () => {
+    cleanup();
     await db.close();
     await db.destroy();
   });
 
-  beforeEach(async (ctx: TestContext) => {
+  beforeEach(async () => {
     await rt.SysContainer.start();
     db = new Database(TEST_DB_NAME);
-
-    // populate database with test data
-    await populateDatabase(db, texts);
-    const allDocs = await db.allDocs();
-    console.log({allDocs});
-
-    // expect(allDocs.rows.length).toBe(texts.length);
-
-    // render the hook, place in testing context
-    ctx.useFireproof = renderHook(() => useFireproof(TEST_DB_NAME)).result.current;
   });
 
-  it("should be defined", async ({ useFireproof }: TestContext) => {
-    expect(useFireproof).toBeDefined();
+  it("should be defined", async () => {
+    const useFireproofHook = getUseFireproofHook(db);
+    const { useLiveQuery } = useFireproofHook.result.current;
+    expect(useLiveQuery).toBeDefined();
   });
 
-/*
-  it("renders the hook correctly and checks types", ({ useFireproof }: TestContext) => {
-    const { useLiveQuery } = useFireproof;
+  it("renders the hook correctly and checks types", () => {
+    const useFireproofHook = getUseFireproofHook(db);
+    const { useLiveQuery } = useFireproofHook.result.current;
     expect(typeof useLiveQuery).toBe("function");
   });
 
 
-  it("reads from the database", async ({ useFireproof }: TestContext) => {
-    const { useDocument, useLiveQuery } = useFireproof;
-    // get useLiveQuery hook results
-    const { result: resUseLiveQuery } = renderHook(
-      () => useLiveQuery<Todo>("date", { limit: 100, descending: true })
-    );
-    const todos = resUseLiveQuery.current;
+  it("reads from the database", async () => {
+    // populate database with test data
+    await populateDatabase(db, texts);
+    const allDocs = await db.allDocs();
 
+    // render hook
+    const useFireproofHook = getUseFireproofHook(db);
+    const { useLiveQuery } = useFireproofHook.result.current;
+
+    const useLiveQueryHook = getUseLiveQueryHook(useLiveQuery);
+    const todos = useLiveQueryHook.result.current;
+    console.log("todos", todos, "\n");
+    expect(todos.docs.length).toBe(allDocs.rows.length);
+  });
+
+/*
     // get allDocs function call results
     const allDocs = await db.allDocs();
 
@@ -120,7 +116,6 @@ describe("HOOK: useLiveQuery", () => {
     state++;
   });
   // result.rerender()
-  // });
-
 */
+
 });
